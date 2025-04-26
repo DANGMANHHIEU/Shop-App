@@ -1,11 +1,31 @@
 package com.example.shopapp.controller;
 
+import com.example.shopapp.models.Category;
+import com.example.shopapp.models.Product;
+import com.example.shopapp.repositories.CategoryRepository;
+import com.example.shopapp.service.category.CategoryService;
+import com.example.shopapp.service.category.ICategoryService;
+import com.example.shopapp.service.product.ResponseObject;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/category")
-@RequiredArgsConstructor
+@RequestMapping("${api.prefix}/categories/category")
 public class CategoryController {
+
+    @Autowired
+    public CategoryRepository categoryRepository;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAllProductByCategory(@PathVariable Long id) {
+        List<Product> products = categoryRepository.getProductList(id);
+        return ResponseEntity.ok(products);
+    }
 }

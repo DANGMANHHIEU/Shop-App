@@ -1,4 +1,4 @@
-package com.project.shopapp.dtos;
+package com.example.shopapp.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
@@ -62,7 +62,7 @@ public class OrderDTO {
     @JsonProperty("vnp_txn_ref")
     private String vnpTxnRef;
 
-    @JsonProperty("cart_items")
-    private List<CartItemDTO> cartItems;
+//    @JsonProperty("cart_items")
+//    private List<CartItemDTO> cartItems;
 
 }

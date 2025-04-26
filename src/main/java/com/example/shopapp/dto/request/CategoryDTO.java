@@ -1,4 +1,4 @@
-package com.example.shopapp.dto;
+package com.example.shopapp.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CategoryDTO {
 
     @NotEmpty(message = "Category's name cannot be empty")
