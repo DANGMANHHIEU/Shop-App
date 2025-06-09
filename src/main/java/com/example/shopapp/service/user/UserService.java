@@ -32,7 +32,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
     /**
-     * Đăng kí
+     * Đăng nhập
      **/
     public String login(UserLoginDto userLoginDTO) throws Exception {
         Optional<User> optionalUser = Optional.empty();
@@ -57,6 +57,10 @@ public class UserService {
         // Kiểm tra tài khoản có bị khóa không
         if (!existingUser.isActive()) {
             throw new IllegalArgumentException("Tài khoản đã bị khóa");
+        }
+
+        if (!passwordEncoder.matches(userLoginDTO.getPassword(), existingUser.getPassword())) {
+            throw new IllegalArgumentException("Mật khẩu không đúng");
         }
 
         // Tạo JWT token cho người dùng

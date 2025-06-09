@@ -3,6 +3,8 @@ package com.example.shopapp.controller;
 import com.example.shopapp.Response.user.UserResponse;
 import com.example.shopapp.dto.request.UserDto;
 import com.example.shopapp.dto.request.UserLoginDto;
+import com.example.shopapp.dto.response.LoginResponse;
+import com.example.shopapp.models.Token;
 import com.example.shopapp.models.User;
 import com.example.shopapp.service.product.ResponseObject;
 import com.example.shopapp.service.token.TokenService;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +33,9 @@ public class UserController {
     private final UserService userService;
     private final TokenService tokenService;
 
-    /*
-    Đăng kí tài khoản
-     */
+    /**
+     * Đăng kí tài khoản
+     **/
     @PostMapping("/register")
     //can we register an "admin" user ?
     public ResponseEntity<ResponseObject> createUser(@Valid @RequestBody UserDto userDTO, BindingResult result) throws Exception {
@@ -87,9 +90,9 @@ public class UserController {
     }
 
 
-    /*
-    Đăng nhập
-     */
+    /**
+     * Đăng nhập
+     **/
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDto userLoginDto, BindingResult result,
                                        HttpServletRequest request) throws Exception {
@@ -100,7 +103,30 @@ public class UserController {
         // Xử lý token và thông tin người dùng
         String userAgent = request.getHeader("User-Agent");
         User user = userService.getUserDetailsFromToken(token);
+        Token jwtToken = tokenService.addToken(user, token, isMobileDevice(userAgent));
 
-        return null;
+        LoginResponse loginResponse = LoginResponse.builder()
+                .message("")
+                .token(jwtToken.getToken())
+                .refreshToken(jwtToken.getRefreshToken())
+                .tokenType(jwtToken.getTokenType())
+                .username(user.getUsername())
+                .id(user.getId())
+                .roles(user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
+                .build();
+
+        // Trả về phản hồi
+        return ResponseEntity.ok().body(
+                ResponseObject.builder()
+                        .message("Login successfully")
+                        .data(loginResponse)
+                        .status(HttpStatus.OK)
+                        .build());
+    }
+
+    private boolean isMobileDevice(String userAgent) {
+        // Kiểm tra User-Agent header để xác định thiết bị di động
+        // Ví dụ đơn giản:
+        return userAgent.toLowerCase().contains("mobile");
     }
 }

@@ -74,9 +74,9 @@ public class JwtTokenUtils {
         return subject;
     }
 
-    /*
-    tạo khóa bí mật (secret key) mà JWT sẽ dùng để ký (sign) token
-     */
+    /**
+     * tạo khóa bí mật (secret key) mà JWT sẽ dùng để ký (sign) token
+     **/
     private SecretKey getSignInKey() {
         byte[] bytes = Decoders.BASE64.decode(secretKey);
         //Keys.hmacShaKeyFor(Decoders.BASE64.decode("TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI="));
