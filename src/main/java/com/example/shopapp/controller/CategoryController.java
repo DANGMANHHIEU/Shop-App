@@ -1,20 +1,12 @@
 package com.example.shopapp.controller;
 
-import com.example.shopapp.models.Category;
 import com.example.shopapp.models.Product;
 import com.example.shopapp.repositories.CategoryRepository;
-import com.example.shopapp.service.category.CategoryService;
-import com.example.shopapp.service.category.ICategoryService;
-import com.example.shopapp.service.product.ResponseObject;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("${api.prefix}/categories/category")

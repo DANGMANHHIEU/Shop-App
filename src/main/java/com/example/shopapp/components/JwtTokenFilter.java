@@ -1,4 +1,4 @@
-package com.example.shopapp.filters;
+package com.example.shopapp.components;
 
 import com.example.shopapp.components.JwtTokenUtils;
 import com.example.shopapp.models.User;
@@ -85,7 +85,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(String.format("%s/comments**", apiPrefix), "GET"),
                 Pair.of(String.format("%s/coupons**", apiPrefix), "GET"),
 
-                Pair.of(String.format("%s/products**", apiPrefix), "GET"),
+            //    Pair.of(String.format("%s/products**", apiPrefix), "GET"),
                 Pair.of(String.format("%s/categories**", apiPrefix), "GET"),
 
                 Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
