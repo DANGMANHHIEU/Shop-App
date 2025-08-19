@@ -2,7 +2,7 @@
 FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /shopapp-backend
 COPY . /shopapp-backend
-RUN mvn package
+RUN mvn package -DskipTests
 
 #multi-staging
 FROM openjdk:17-slim
@@ -16,7 +16,7 @@ CMD ["java","-jar","app.jar"]
 #docker build -t shopapp-spring:1.0.4 -f ./DockerfileJavaSpring .
 #docker login
 #create sunlight4d/shopapp-spring:1.0.4 repository on DockerHub
-#docker tag shopapp-spring:1.0.4 sunlight4d/shopapp-spring:1.0.4
-#docker push sunlight4d/shopapp-spring:1.0.4
+#docker tag shopapp-spring:1.0.4 hieuliver/shop_app:1.0.4
+#docker push hieuliver/shop_app:1.0.4
 
 
