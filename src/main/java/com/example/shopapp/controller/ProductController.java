@@ -94,8 +94,18 @@ public class ProductController {
         return ResponseEntity.ok("Product with ID: " + productId);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable("id") String productId) {
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long productId) {
+        productService.deleteProduct(productId);
         return ResponseEntity.ok(String.format("Product with id = %s deleted successfully", productId));
+    }
+
+    @PostMapping("/update/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long productId) {
+        productService.updateProduct(productId);
+        productRedisService.clear();
+        return ResponseEntity.ok(String.format("Product with id = %s update successfully", productId));
     }
 }

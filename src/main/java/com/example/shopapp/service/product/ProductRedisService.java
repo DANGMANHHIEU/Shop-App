@@ -58,4 +58,8 @@ public class ProductRedisService {
         String json = redisObjectMapper.writeValueAsString(productResponses);
         redisTemplate.opsForValue().set(key,json);
     }
+
+    public void clear(){
+        redisTemplate.getConnectionFactory().getConnection().flushAll();
+    }
 }

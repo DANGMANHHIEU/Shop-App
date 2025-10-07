@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@EntityListeners(ProductListener.class)
 // @EntityListeners(ProductListener.class) //Event-driven approach with Spring Data JPA
 public class Product extends BaseEntity{
     @Id
