@@ -4,6 +4,7 @@ import com.example.shopapp.components.JwtTokenUtils;
 import com.example.shopapp.dto.request.UserDto;
 import com.example.shopapp.dto.request.UserLoginDto;
 import com.example.shopapp.models.Role;
+import com.example.shopapp.models.Token;
 import com.example.shopapp.models.User;
 import com.example.shopapp.repositories.RoleRepository;
 import com.example.shopapp.repositories.TokenRepository;
@@ -130,6 +131,11 @@ public class UserService {
             throw new IllegalArgumentException("Ko tồn tại User");
         }
         return user.get();
+    }
+
+    public User getUserDetailsFromRefreshToken(String refreshToken) throws Exception {
+        Token existingToken = tokenRepository.findByRefreshToken(refreshToken);
+        return getUserDetailsFromToken(existingToken.getToken());
     }
 
 

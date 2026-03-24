@@ -2,6 +2,7 @@ package com.example.shopapp.controller;
 
 import com.example.shopapp.Response.ResponseObject;
 import com.example.shopapp.Response.user.UserResponse;
+import com.example.shopapp.dto.request.RefreshTokenDTO;
 import com.example.shopapp.dto.request.UserDto;
 import com.example.shopapp.dto.request.UserLoginDto;
 import com.example.shopapp.dto.response.LoginResponse;
@@ -127,5 +128,15 @@ public class UserController {
         // Kiểm tra User-Agent header để xác định thiết bị di động
         // Ví dụ đơn giản:
         return userAgent.toLowerCase().contains("mobile");
+    }
+
+    /**
+     * tạo token từ refesh token
+     */
+
+    @PostMapping("/refesh-token")
+    public ResponseEntity<?> createTokenFromRefeshToken (@Valid @RequestBody RefreshTokenDTO refreshTokenDTO){
+
+        return null;
     }
 }
